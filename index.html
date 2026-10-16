@@ -16,7 +16,7 @@
       background: #f3f4f6;
       color: #222;
       margin: 0;
-      padding: 24px;
+      padding: 12px;
     }
 
     main {
@@ -30,7 +30,6 @@
     }
 
     .painel {
-      background: white;
       padding: 20px;
       border-radius: 12px;
       margin-bottom: 24px;
@@ -139,7 +138,7 @@
       align-items: center;
       gap: 8px;
       min-width: 0;
-      padding: 12px;
+      padding: 12px 0;
       background: #ffffff;
       border: 1px solid var(--cor-borda);
       border-radius: var(--raio-medio);
@@ -147,7 +146,7 @@
 
     .cartao-caixa input,
     .campo-disponibilidade input {
-      width: 20px;
+      width: 10px;
       height: 20px;
       flex-shrink: 0;
       accent-color: var(--cor-primaria);
@@ -487,7 +486,7 @@
     /* Cada operador vira um cartão */
     #listaOperadores .wrapper {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       gap: 5px;
       margin-bottom: 14px;
       padding: 16px;
@@ -866,7 +865,6 @@
         </select>
       </td>
 
-      <div>
       <td>
         <input
           type="time"
@@ -884,7 +882,6 @@
           value="${operador.fim}"
         >
       </td>
-      </div>
     </div>
   `).join("");
     }
