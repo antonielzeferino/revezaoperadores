@@ -130,7 +130,7 @@
 
     .lista-caixas {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
     }
 
@@ -292,12 +292,321 @@
 
       accent-color: #475569;
       cursor: pointer;
-    } 
+    }
 
     @media (max-width: 360px) {
       .lista-caixas {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+    }
+
+
+    /* Lista de resultados */
+    #resultado {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 0;
+      margin: 0;
+      border: none;
+    }
+
+    /* Cartão individual */
+    .cartao-resultado {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 4%);
+    }
+
+    /* Nome, horário e novo caixa */
+    .cabecalho-resultado {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .identificacao-resultado {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .nome-resultado {
+      margin: 0 0 6px;
+      color: #222;
+      font-size: 16px;
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .horario-resultado {
+      margin: 0;
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    .icone-horario {
+      margin-right: 4px;
+    }
+
+    /* Destaque do novo caixa */
+    .novo-caixa {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      min-width: 64px;
+      padding: 9px 12px;
+      background: #f3f4f6;
+      border-radius: 10px;
+    }
+
+    .rotulo-novo-caixa {
+      color: #6b7280;
+      font-size: 11px;
+    }
+
+    .novo-caixa strong {
+      margin-top: 3px;
+      color: #222;
+      font-size: 23px;
+    }
+
+    /* Informações secundárias */
+    .detalhes-resultado {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 14px 0;
+    }
+
+    .detalhe-resultado {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .rotulo-detalhe {
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    .detalhe-resultado strong {
+      color: #374151;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    /* Status */
+    .detalhe-status {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+
+    .detalhe-status strong {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .status-alocado {
+      background: #ecfdf5;
+      color: #047857;
+    }
+
+    .status-espera {
+      background: #fffbeb;
+      color: #92400e;
+    }
+
+    .status-sem-caixa,
+    .status-indisponivel {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+
+    .lado-a {
+      color: #2563eb !important;
+    }
+
+    .lado-b {
+      color: #9333ea !important;
+    }
+
+    .resultado-vazio {
+      padding: 20px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    /* Ajustes para telas pequenas */
+    @media (max-width: 380px) {
+      .cartao-resultado {
+        padding: 12px;
+      }
+
+      .cabecalho-resultado {
+        gap: 8px;
+      }
+
+      .nome-resultado {
+        font-size: 15px;
+      }
+
+      .novo-caixa {
+        min-width: 54px;
+        padding: 8px;
+      }
+    }
+
+
+    /* Painel de operadores */
+    .secao-operadores,
+    .painel:has(#listaOperadores) {
+      min-width: 0;
+    }
+
+    #listaOperadores {
+      display: block;
+      width: 100%;
+    }
+
+    /* Cada operador vira um cartão */
+    #listaOperadores .wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin-bottom: 14px;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 4%);
+    }
+
+    /* Remove a aparência tradicional da tabela */
+    #listaOperadores td {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 0;
+      border: none;
+    }
+
+    /* O campo do nome ocupa toda a largura */
+    #listaOperadores td:first-child {
+      grid-column: 1 / -1;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    /* Rótulos dos campos */
+    #listaOperadores td:nth-child(2)::before {
+      content: "Caixa anterior";
+    }
+
+    #listaOperadores td:nth-child(3)::before {
+      content: "Início do turno";
+    }
+
+    #listaOperadores td:nth-child(4)::before {
+      content: "Fim do turno";
+    }
+
+    #listaOperadores td:nth-child(2)::before,
+    #listaOperadores td:nth-child(3)::before,
+    #listaOperadores td:nth-child(4)::before {
+      margin-bottom: 6px;
+      color: #6b7280;
+      font-size: 12px;
+    }
+
+    /* Campos editáveis */
+    #listaOperadores input[type="text"],
+    #listaOperadores input[type="time"],
+    #listaOperadores select {
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      padding: 10px;
+      font: inherit;
+      font-size: 14px;
+      color: #374151;
+      background: #f9fafb;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+    }
+
+    #listaOperadores input:focus,
+    #listaOperadores select:focus {
+      outline: none;
+      border-color: #64748b;
+      box-shadow: 0 0 0 3px rgb(100 116 139 / 12%);
+    }
+
+    /* Disponibilidade */
+    #listaOperadores td:first-child label {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 8px;
+      margin-top: 10px;
+      color: #64748b;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #listaOperadores td:first-child input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: #475569;
+    }
+
+    /* Contêiner da tabela */
+    .painel:has(#listaOperadores) .tabela-container {
+      overflow: visible;
+      border: none;
+    }
+
+    /* Em telas pequenas */
+    @media (max-width: 380px) {
+      #listaOperadores .wrapper {
+        gap: 10px;
+        padding: 12px;
+      }
+
+      #listaOperadores input[type="text"],
+      #listaOperadores input[type="time"],
+      #listaOperadores select {
+        padding: 9px 7px;
+        font-size: 13px;
+      }
+    }
+
+    /*  quero que esse disponibilidade pareça mais com um botao */
+
+    .campo-disponibilidade {
+      background: #f3f4f6;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      transition: background-color 0.2s, border-color 0.2s;
+      margin: 5px;
     }
   </style>
 </head>
@@ -328,17 +637,7 @@
       <h2>Operadores</h2>
 
       <div class="tabela-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Operador</th>
-              <th>Caixa anterior</th>
-              <th>Início</th>
-              <th>Fim</th>
-            </tr>
-          </thead>
-          <tbody id="listaOperadores"></tbody>
-        </table>
+        <div id="listaOperadores"></div>
       </div>
 
       <div class="botoes">
@@ -362,31 +661,17 @@
       </div>
     </section>
 
+
     <section class="painel">
       <h2>Resultado da rotação</h2>
 
-      <div class="tabela-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Operador</th>
-              <th>Caixa anterior</th>
-              <th>Novo caixa</th>
-              <th>Lado</th>
-              <th>Horário</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="resultado">
-            <tr>
-              <td colspan="6">
-                O resultado aparecerá aqui.
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div id="resultado" class="lista-resultados">
+        <p class="resultado-vazio">
+          O resultado aparecerá aqui.
+        </p>
       </div>
     </section>
+
   </main>
 
   <script>
@@ -411,7 +696,6 @@
       { nome: "Kaylan", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
       { nome: "Antoniel", caixaAnterior: 0, inicio: "16:00", fim: "20:20", indisponivel: false },
       { nome: "Erisvaldo II", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
-      { nome: "Paulo", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
       { nome: "Ariel sereia", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false }
     ];
 
@@ -543,7 +827,7 @@
       }
 
       lista.innerHTML = operadores.map((operador, indice) => `
-    <tr>
+    <div class="wrapper">
       <td>
         <input
           type="text"
@@ -553,7 +837,7 @@
           placeholder="Nome do operador"
         >
 
-        <label>
+        <label class="campo-disponibilidade">
           <input
             type="checkbox"
             data-indice="${indice}"
@@ -567,7 +851,7 @@
       <td>
         <select data-indice="${indice}" data-campo="caixaAnterior">
           <option value="0" ${Number(operador.caixaAnterior) === 0 ? "selected" : ""}>
-            Selecione
+            Caixa
           </option>
 
           ${Array.from({ length: 12 }, (_, i) => i + 1)
@@ -582,6 +866,7 @@
         </select>
       </td>
 
+      <div>
       <td>
         <input
           type="time"
@@ -599,7 +884,8 @@
           value="${operador.fim}"
         >
       </td>
-    </tr>
+      </div>
+    </div>
   `).join("");
     }
     // ========================================
@@ -670,10 +956,11 @@
     // 7. CALCULAR A ROTAÇÃO
     // ========================================
 
+
     function gerarRotacao() {
       const dados = lerFormulario();
 
-      // Guardar as alterações antes de renderizar novamente.
+      // Guardar os dados editados.
       operadores = copiarDados(dados);
 
       const erro = validarOperadores(dados);
@@ -691,48 +978,66 @@
           fimMin: paraMinutos(op.fim)
         }))
         .sort((a, b) =>
-          (b.fimMin - b.inicioMin) - (a.fimMin - a.inicioMin)
+          a.inicioMin - b.inicioMin ||
+          a.fimMin - b.fimMin
         );
 
       const alocacoes = [];
-      const resultadosPorNome = new Map();
+      const resultadosPorIndice = new Map();
 
       for (const operador of disponiveis) {
+        const indice = dados.indexOf(operador) >= 0
+          ? dados.indexOf(operador)
+          : dados.findIndex(op => op.nome === operador.nome);
+
         const ladoAnterior = obterLado(operador.caixaAnterior);
         const outroLado = ladoAnterior === "A" ? "B" : "A";
 
-        // Priorizar a troca de lado, respeitando a disponibilidade.
         const candidatos = [
           ...caixas[outroLado],
           ...caixas[ladoAnterior]
         ].filter(caixa => !caixasIndisponiveis.has(caixa));
 
-        let melhorCaixa = null;
+        let melhorOpcao = null;
         let menorPontuacao = Infinity;
 
         for (const caixa of candidatos) {
-          const conflito = alocacoes.some(alocacao =>
-            alocacao.caixa === caixa &&
-            temConflito(
-              operador.inicioMin,
-              operador.fimMin,
-              alocacao
-            )
-          );
+          // Encontrar o primeiro horário em que este caixa
+          // pode receber o operador sem sobreposição.
+          const agendaCaixa = alocacoes
+            .filter(a => a.caixa === caixa)
+            .sort((a, b) => a.inicio - b.inicio);
 
-          if (conflito) continue;
+          let inicioReal = operador.inicioMin;
+
+          for (const alocacao of agendaCaixa) {
+            if (alocacao.fim <= inicioReal) {
+              continue;
+            }
+
+            if (inicioReal < alocacao.fim) {
+              inicioReal = alocacao.fim;
+            }
+          }
+
+          // Não alocar se o caixa só ficar livre após
+          // o término do horário do operador.
+          if (inicioReal >= operador.fimMin) {
+            continue;
+          }
 
           const ladoNovo = obterLado(caixa);
-          const esforcoAnterior = esforcoCaixas[operador.caixaAnterior];
-          const esforcoNovo = esforcoCaixas[caixa];
+          const esforcoAnterior =
+            esforcoCaixas[Number(operador.caixaAnterior)] ?? 0;
+          const esforcoNovo = esforcoCaixas[caixa] ?? 0;
 
-          const carga = alocacoes.reduce((total, alocacao) => {
-            if (alocacao.caixa !== caixa) return total;
+          const carga = alocacoes.reduce((total, a) => {
+            if (a.caixa !== caixa) return total;
 
-            return total + (alocacao.fim - alocacao.inicio);
+            return total + (a.fim - a.inicio);
           }, 0);
 
-          // Tentar alternar o esforço entre os turnos.
+          // Priorizar troca de lado e equilíbrio de esforço.
           const pontuacaoEsforco = esforcoAnterior >= 2
             ? esforcoNovo * 20
             : (4 - esforcoNovo) * 20;
@@ -740,21 +1045,32 @@
           const penalidadeLado =
             ladoNovo === ladoAnterior ? 100000 : 0;
 
+          // Evitar espera quando existe outro caixa livre.
+          const penalidadeEspera =
+            (inicioReal - operador.inicioMin) * 100;
+
           const pontuacao =
+            penalidadeEspera +
             carga * 0.1 +
             pontuacaoEsforco +
             penalidadeLado;
 
           if (pontuacao < menorPontuacao) {
             menorPontuacao = pontuacao;
-            melhorCaixa = caixa;
+
+            melhorOpcao = {
+              caixa,
+              inicio: inicioReal,
+              fim: operador.fimMin
+            };
           }
         }
 
-        if (melhorCaixa === null) {
-          resultadosPorNome.set(operador.nome, {
+        if (!melhorOpcao) {
+          resultadosPorIndice.set(indice, {
             ...operador,
             caixaNovo: null,
+            ladoAnterior,
             ladoNovo: null,
             status: "Sem caixa disponível"
           });
@@ -763,24 +1079,31 @@
         }
 
         alocacoes.push({
-          caixa: melhorCaixa,
-          inicio: operador.inicioMin,
-          fim: operador.fimMin
+          caixa: melhorOpcao.caixa,
+          inicio: melhorOpcao.inicio,
+          fim: melhorOpcao.fim,
+          operador: operador.nome
         });
 
-        resultadosPorNome.set(operador.nome, {
+        resultadosPorIndice.set(indice, {
           ...operador,
-          caixaNovo: melhorCaixa,
+          caixaNovo: melhorOpcao.caixa,
           ladoAnterior,
-          ladoNovo: obterLado(melhorCaixa),
-          status: obterLado(melhorCaixa) !== ladoAnterior
-            ? "Trocou de lado"
-            : "Permaneceu no lado"
+          ladoNovo: obterLado(melhorOpcao.caixa),
+
+          // Horário real em que assume o caixa.
+          inicioAlocacao: melhorOpcao.inicio,
+          fimAlocacao: melhorOpcao.fim,
+
+          status: melhorOpcao.inicio > operador.inicioMin
+            ? `Assume às ${String(Math.floor(melhorOpcao.inicio / 60)).padStart(2, "0")}:${String(melhorOpcao.inicio % 60).padStart(2, "0")}`
+            : obterLado(melhorOpcao.caixa) !== ladoAnterior
+              ? "Trocou de lado"
+              : "Permaneceu no lado"
         });
       }
 
-      // Incluir os operadores indisponíveis sem atribuir caixas.
-      const resultadoFinal = dados.map(operador => {
+      const resultadoFinal = dados.map((operador, indice) => {
         if (operador.indisponivel) {
           return {
             ...operador,
@@ -790,7 +1113,12 @@
           };
         }
 
-        return resultadosPorNome.get(operador.nome);
+        return resultadosPorIndice.get(indice) ?? {
+          ...operador,
+          caixaNovo: null,
+          ladoNovo: null,
+          status: "Sem caixa disponível"
+        };
       });
 
       mostrarResultado(resultadoFinal);
@@ -801,12 +1129,12 @@
 
       if (semCaixa > 0) {
         mostrarMensagem(
-          `Rotação calculada, mas ${semCaixa} operador(es) ficaram sem caixa. Verifique a disponibilidade dos caixas e os horários.`,
+          `Rotação calculada, mas ${semCaixa} operador(es) ficaram sem caixa. Verifique os horários e os caixas bloqueados.`,
           "erro"
         );
       } else {
         mostrarMensagem(
-          "Rotação calculada com sucesso. Confira os resultados.",
+          "Rotação calculada com sucesso. Confira os horários de entrada nos caixas.",
           "sucesso"
         );
       }
@@ -816,6 +1144,7 @@
     // ========================================
     // 8. MOSTRAR O RESULTADO
     // ========================================
+
 
     function mostrarResultado(resultado) {
       const lista = document.getElementById("resultado");
@@ -829,49 +1158,75 @@
         return;
       }
 
-      lista.innerHTML = resultado.map(op => `
-    <article class="cartao-resultado">
-      <header class="cabecalho-resultado">
-        <div class="identificacao-resultado">
-          <h3 class="nome-resultado">
-            ${escaparHTML(op.nome)}
-          </h3>
+      lista.innerHTML = resultado.map(op => {
+        const inicioReal = op.inicioAlocacao != null
+          ? `${String(Math.floor(op.inicioAlocacao / 60)).padStart(2, "0")}:${String(op.inicioAlocacao % 60).padStart(2, "0")}`
+          : op.inicio;
 
-          <p class="horario-resultado">
-            ${escaparHTML(op.inicio)} às ${escaparHTML(op.fim)}
-          </p>
+        const fimReal = op.fimAlocacao != null
+          ? `${String(Math.floor(op.fimAlocacao / 60)).padStart(2, "0")}:${String(op.fimAlocacao % 60).padStart(2, "0")}`
+          : op.fim;
+
+        const horario = op.caixaNovo != null
+          ? `${inicioReal} às ${fimReal}`
+          : `${op.inicio} às ${op.fim}`;
+
+        const classeStatus = op.indisponivel
+          ? "status-indisponivel"
+          : op.caixaNovo == null
+            ? "status-sem-caixa"
+            : op.inicioAlocacao != null &&
+              op.inicioAlocacao > op.inicioMin
+              ? "status-espera"
+              : "status-alocado";
+
+        return `
+      <article class="cartao-resultado">
+        <header class="cabecalho-resultado">
+          <div class="identificacao-resultado">
+            <h3 class="nome-resultado">
+              ${escaparHTML(op.nome)}
+            </h3>
+
+            <p class="horario-resultado">
+              <span class="icone-horario">◷</span>
+              ${escaparHTML(horario)}
+            </p>
+          </div>
+
+          <div class="novo-caixa">
+            <span class="rotulo-novo-caixa">Novo caixa</span>
+            <strong>${op.caixaNovo ?? "—"}</strong>
+          </div>
+        </header>
+
+        <div class="detalhes-resultado">
+          <div class="detalhe-resultado">
+            <span class="rotulo-detalhe">Caixa anterior</span>
+            <strong>${op.caixaAnterior || "Não informado"}</strong>
+          </div>
+
+          <div class="detalhe-resultado">
+            <span class="rotulo-detalhe">Novo lado</span>
+            <strong class="${op.ladoNovo === "A"
+            ? "lado-a"
+            : op.ladoNovo === "B"
+              ? "lado-b"
+              : ""
+          }">
+              ${op.ladoNovo ?? "—"}
+            </strong>
+          </div>
         </div>
 
-        <div class="novo-caixa">
-          <span class="rotulo-novo-caixa">Novo caixa</span>
-          <strong>${op.caixaNovo ?? "—"}</strong>
+        <div class="detalhe-status ${classeStatus}">
+          <span class="rotulo-detalhe">Status da alocação</span>
+          <strong>${escaparHTML(op.status)}</strong>
         </div>
-      </header>
-
-      <dl class="detalhes-resultado">
-        <div class="detalhe-resultado">
-          <dt>Caixa anterior</dt>
-          <dd>${op.caixaAnterior}</dd>
-        </div>
-
-        <div class="detalhe-resultado">
-          <dt>Novo lado</dt>
-          <dd class="${op.ladoNovo === "A" ? "lado-a" : op.ladoNovo === "B" ? "lado-b" : ""}">
-            ${op.ladoNovo ?? "—"}
-          </dd>
-        </div>
-
-        <div class="detalhe-resultado detalhe-status">
-          <dt>Status</dt>
-          <dd class="${op.indisponivel ? "status-indisponivel" : ""}">
-            ${escaparHTML(op.status)}
-          </dd>
-        </div>
-      </dl>
-    </article>
-  `).join("");
+      </article>
+    `;
+      }).join("");
     }
-
 
     // ========================================
     // 9. ADICIONAR OPERADOR
