@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,7 +24,8 @@
       margin: auto;
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       margin-top: 0;
     }
 
@@ -46,7 +47,8 @@
       min-width: 650px;
     }
 
-    th, td {
+    th,
+    td {
       padding: 10px;
       text-align: left;
       border-bottom: 1px solid #ddd;
@@ -56,7 +58,8 @@
       background: #f8fafc;
     }
 
-    input, select {
+    input,
+    select {
       width: 100%;
       min-width: 75px;
       padding: 9px;
@@ -120,424 +123,848 @@
       font-size: 14px;
       line-height: 1.5;
     }
+
+    /* ========================================
+   DISPONIBILIDADE DOS CAIXAS
+======================================== */
+
+    .lista-caixas {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .cartao-caixa {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 12px;
+      background: #ffffff;
+      border: 1px solid var(--cor-borda);
+      border-radius: var(--raio-medio);
+    }
+
+    .cartao-caixa input,
+    .campo-disponibilidade input {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      accent-color: var(--cor-primaria);
+    }
+
+    .cartao-caixa label {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cartao-caixa.indisponivel {
+      background: #fef2f2;
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
+
+    /* ========================================
+   DISPONIBILIDADE DOS OPERADORES
+======================================== */
+
+    /* Campo de nome do operador */
+    #listaOperadores input[type="text"] {
+      width: 100%;
+      min-width: 140px;
+      padding: 10px 12px;
+
+      font-family: inherit;
+      font-size: 14px;
+      color: #222;
+
+      background-color: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+
+      outline: none;
+      box-sizing: border-box;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+    }
+
+    /* Destaque ao selecionar o campo */
+    #listaOperadores input[type="text"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgb(37 99 235 / 15%);
+      background-color: #fff;
+    }
+
+    /* Aparência quando o campo está vazio */
+    #listaOperadores input[type="text"]::placeholder {
+      color: #9ca3af;
+      opacity: 1;
+    }
+
+    /* Efeito ao passar o mouse */
+    #listaOperadores input[type="text"]:hover {
+      border-color: #9ca3af;
+    }
+
+    .campo-disponibilidade {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--cor-borda);
+    }
+
+    .campo-disponibilidade label {
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .cartao-operador.indisponivel {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      opacity: 0.75;
+    }
+
+    .status-indisponivel {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    /* Célula do nome do operador */
+    #listaOperadores td:first-child {
+      min-width: 180px;
+      vertical-align: middle;
+    }
+
+    /* Campo de nome */
+    #listaOperadores input[type="text"] {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+
+      font: inherit;
+      font-size: 14px;
+      color: #333;
+
+      background: #fff;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    #listaOperadores input[type="text"]:focus {
+      outline: none;
+      border-color: #64748b;
+      box-shadow: 0 0 0 3px rgb(100 116 139 / 15%);
+    }
+
+    /* Texto e checkbox de indisponibilidade */
+    #listaOperadores td:first-child label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+
+      margin: 0;
+      padding: 0;
+
+      font-size: 13px;
+      line-height: 1.4;
+      color: #64748b;
+
+      cursor: pointer;
+    }
+
+    /* Checkbox */
+    #listaOperadores td:first-child input[type="checkbox"] {
+      flex: 0 0 auto;
+      width: 16px;
+      height: 16px;
+      margin: 0;
+
+      accent-color: #475569;
+      cursor: pointer;
+    } 
+
+    @media (max-width: 360px) {
+      .lista-caixas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   </style>
 </head>
 
 <body>
-<main>
-  <h1>Rotação de Operadores</h1>
-
-  <p class="observacao">
-    Edite os operadores, os caixas do primeiro turno
-    e os horários do período que será organizado.
-  </p>
-
-  <section class="painel">
-    <h2>Operadores</h2>
-
-    <div class="tabela-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Operador</th>
-            <th>Caixa anterior</th>
-            <th>Início</th>
-            <th>Fim</th>
-          </tr>
-        </thead>
-        <tbody id="listaOperadores"></tbody>
-      </table>
-    </div>
-
-    <div class="botoes">
-      <button onclick="gerarRotacao()">
-        Gerar rotação
-      </button>
-
-      <button class="secundario" onclick="restaurarDados()">
-        Restaurar dados iniciais
-      </button>
-    </div>
+  <main>
+    <h1>Rotação de Operadores</h1>
 
     <p class="observacao">
-      O caixa anterior indica onde o operador trabalhou
-      no primeiro turno. Os horários indicam quando ele
-      estará no período que estamos organizando.
+      Edite os operadores, os caixas do primeiro turno
+      e os horários do período que será organizado.
     </p>
 
-    <div id="mensagem" class="mensagem">
-      Edite os dados e clique em Gerar rotação.
-    </div>
-  </section>
 
-  <section class="painel">
-    <h2>Resultado da rotação</h2>
+    <section class="secao secao-caixas" aria-labelledby="titulo-caixas">
+      <header class="cabecalho-secao">
+        <h2 id="titulo-caixas">Disponibilidade dos caixas</h2>
+        <p class="descricao-secao">
+          Desmarque os caixas que não poderão ser utilizados nesta rotação.
+        </p>
+      </header>
 
-    <div class="tabela-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Operador</th>
-            <th>Caixa anterior</th>
-            <th>Novo caixa</th>
-            <th>Lado</th>
-            <th>Horário</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody id="resultado">
-          <tr>
-            <td colspan="6">
-              O resultado aparecerá aqui.
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-</main>
+      <div id="listaCaixas" class="lista-caixas">
+        <!-- Os caixas serão inseridos pelo JavaScript. -->
+      </div>
+    </section>
+    <section class="painel">
+      <h2>Operadores</h2>
 
-<script>
-  // 1. DADOS PREDEFINIDOS
-  const dadosIniciais = [
-    {
-      nome: "Ana",
-      caixaAnterior: 2,
-      inicio: "10:00",
-      fim: "14:00"
-    },
-    {
-      nome: "Bruno",
-      caixaAnterior: 8,
-      inicio: "10:00",
-      fim: "14:00"
-    },
-    {
-      nome: "Carla",
-      caixaAnterior: 3,
-      inicio: "11:00",
-      fim: "14:00"
-    },
-    {
-      nome: "Diego",
-      caixaAnterior: 9,
-      inicio: "12:00",
-      fim: "16:00"
-    },
-    {
-      nome: "Elisa",
-      caixaAnterior: 4,
-      inicio: "14:00",
-      fim: "18:00"
-    },
-    {
-      nome: "Fabio",
-      caixaAnterior: 10,
-      inicio: "14:00",
-      fim: "18:00"
-    },
-    {
-      nome: "Gabi",
-      caixaAnterior: 5,
-      inicio: "15:00",
-      fim: "19:00"
-    },
-    {
-      nome: "Hugo",
-      caixaAnterior: 11,
-      inicio: "16:00",
-      fim: "20:00"
-    }
-  ];
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Operador</th>
+              <th>Caixa anterior</th>
+              <th>Início</th>
+              <th>Fim</th>
+            </tr>
+          </thead>
+          <tbody id="listaOperadores"></tbody>
+        </table>
+      </div>
+
+      <div class="botoes">
+        <button onclick="gerarRotacao()">
+          Gerar rotação
+        </button>
+
+        <button class="secundario" onclick="restaurarDados()">
+          Restaurar dados iniciais
+        </button>
+      </div>
+
+      <p class="observacao">
+        O caixa anterior indica onde o operador trabalhou
+        no primeiro turno. Os horários indicam quando ele
+        estará no período que estamos organizando.
+      </p>
+
+      <div id="mensagem" class="mensagem">
+        Edite os dados e clique em Gerar rotação.
+      </div>
+    </section>
+
+    <section class="painel">
+      <h2>Resultado da rotação</h2>
+
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Operador</th>
+              <th>Caixa anterior</th>
+              <th>Novo caixa</th>
+              <th>Lado</th>
+              <th>Horário</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="resultado">
+            <tr>
+              <td colspan="6">
+                O resultado aparecerá aqui.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ========================================
+    // 1. DADOS INICIAIS
+    // ========================================
+
+    const dadosIniciais = [
+      { nome: "Mazé", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Ilana", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Karoline", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Bárbara", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Erisvaldo", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Raquel", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Itallo", caixaAnterior: 0, inicio: "14:00", fim: "17:20", indisponivel: false },
+      { nome: "Arthur", caixaAnterior: 0, inicio: "14:00", fim: "17:20", indisponivel: false },
+      { nome: "Daniele", caixaAnterior: 0, inicio: "14:00", fim: "17:20", indisponivel: false },
+      { nome: "Carolina", caixaAnterior: 0, inicio: "16:00", fim: "19:20", indisponivel: false },
+      { nome: "Israyane", caixaAnterior: 0, inicio: "16:20", fim: "20:50", indisponivel: false },
+      { nome: "Aline", caixaAnterior: 0, inicio: "16:20", fim: "20:20", indisponivel: false },
+      { nome: "Ray", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
+      { nome: "Kaylan", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
+      { nome: "Antoniel", caixaAnterior: 0, inicio: "16:00", fim: "20:20", indisponivel: false },
+      { nome: "Erisvaldo II", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
+      { nome: "Paulo", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
+      { nome: "Ariel sereia", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false }
+    ];
 
     const esforcoCaixas = {
-    1: 1,
-    2: 1,
-    3: 1,
-    4: 2,
-    5: 2,
-    6: 3,
-    7: 3,
-    8: 3,
-    9: 3,
-    10: 2,
-    11: 1,
-    12: 1
+      1: 1,
+      2: 1,
+      3: 1,
+      4: 2,
+      5: 2,
+      6: 3,
+      7: 3,
+      8: 3,
+      9: 3,
+      10: 2,
+      11: 1,
+      12: 1
     };
 
-  const caixas = {
-    A: [1, 2, 3, 4, 5, 6, 7],
-    B: [8, 9, 10, 11, 12]
-  };
+    const caixas = {
+      A: [1, 2, 3, 4, 5, 6, 7],
+      B: [8, 9, 10, 11, 12]
+    };
 
-  let operadores = copiarDados(dadosIniciais);
+    const todosOsCaixas = [...caixas.A, ...caixas.B];
 
-  function copiarDados(dados) {
-    return dados.map(operador => ({ ...operador }));
-  }
+    let operadores = copiarDados(dadosIniciais);
+    let caixasIndisponiveis = new Set();
 
-  // 2. MOSTRAR O ARRAY NO HTML
-  function mostrarOperadores() {
-    const tbody = document.getElementById("listaOperadores");
 
-    tbody.innerHTML = operadores.map((operador, indice) => `
-      <tr>
-        <td>
-          <input
-            type="text"
-            data-indice="${indice}"
-            data-campo="nome"
-            value="${escaparHTML(operador.nome)}"
-          >
-        </td>
+    // ========================================
+    // 2. FUNÇÕES AUXILIARES
+    // ========================================
 
-        <td>
-          <select data-indice="${indice}" data-campo="caixaAnterior">
-            ${caixas.A.concat(caixas.B).map(caixa => `
-              <option
-                value="${caixa}"
-                ${caixa === Number(operador.caixaAnterior) ? "selected" : ""}
-              >
-                ${caixa} - Lado ${obterLado(caixa)}
-              </option>
-            `).join("")}
-          </select>
-        </td>
-
-        <td>
-          <input
-            type="time"
-            data-indice="${indice}"
-            data-campo="inicio"
-            value="${operador.inicio}"
-          >
-        </td>
-
-        <td>
-          <input
-            type="time"
-            data-indice="${indice}"
-            data-campo="fim"
-            value="${operador.fim}"
-          >
-        </td>
-      </tr>
-    `).join("");
-  }
-
-  function escaparHTML(texto) {
-    return String(texto).replace(/[&<>"']/g, caractere => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#39;"
-    })[caractere]);
-  }
-
-  function obterLado(caixa) {
-    return caixas.A.includes(Number(caixa)) ? "A" : "B";
-  }
-
-  function paraMinutos(horario) {
-    const [horas, minutos] = horario.split(":").map(Number);
-    return horas * 60 + minutos;
-  }
-
-  // 3. LER AS ALTERAÇÕES FEITAS NO HTML
-  function lerFormulario() {
-    const dados = copiarDados(operadores);
-
-    document.querySelectorAll("[data-campo]").forEach(campo => {
-      const indice = Number(campo.dataset.indice);
-      const propriedade = campo.dataset.campo;
-
-      dados[indice][propriedade] =
-        propriedade === "caixaAnterior"
-          ? Number(campo.value)
-          : campo.value.trim();
-    });
-
-    return dados;
-  }
-
-  // 4. VERIFICAR SE DOIS HORÁRIOS SE SOBREPOEM
-  function temConflito(inicio, fim, alocacao) {
-    return inicio < alocacao.fim &&
-           fim > alocacao.inicio;
-  }
-
-  // 5. CALCULAR A ROTAÇÃO
-  function gerarRotacao() {
-    const dados = lerFormulario();
-    const mensagem = document.getElementById("mensagem");
-
-    const nomes = dados.map(op => op.nome.toLowerCase());
-
-    if (dados.some(op =>
-      !op.nome ||
-      !op.inicio ||
-      !op.fim ||
-      !Number.isInteger(op.caixaAnterior) ||
-      !caixas.A.concat(caixas.B).includes(op.caixaAnterior) ||
-      !Number.isFinite(paraMinutos(op.inicio)) ||
-      !Number.isFinite(paraMinutos(op.fim)) ||
-      paraMinutos(op.inicio) >= paraMinutos(op.fim)
-    )) {
-      mensagem.className = "mensagem erro";
-      mensagem.textContent =
-        "Verifique os nomes, os caixas e os horários. O início deve ser anterior ao fim.";
-      return;
+    function copiarDados(dados) {
+      return dados.map(operador => ({ ...operador }));
     }
 
-    if (new Set(nomes).size !== nomes.length) {
-      mensagem.className = "mensagem erro";
-      mensagem.textContent =
-        "Existem nomes de operadores repetidos. Corrija antes de continuar.";
-      return;
+    function escaparHTML(texto) {
+      return String(texto).replace(/[&<>"']/g, caractere => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[caractere]);
     }
 
-    // Processa primeiro os operadores com maior duração.
-    const ordenados = dados.map(op => ({
-      ...op,
-      inicioMin: paraMinutos(op.inicio),
-      fimMin: paraMinutos(op.fim)
-    })).sort((a, b) =>
-      (b.fimMin - b.inicioMin) - (a.fimMin - a.inicioMin)
-    );
+    function obterLado(caixa) {
+      return caixas.A.includes(Number(caixa)) ? "A" : "B";
+    }
 
-    const alocacoes = [];
-    const resultado = [];
+    function paraMinutos(horario) {
+      const [horas, minutos] = horario.split(":").map(Number);
+      return horas * 60 + minutos;
+    }
 
-    for (const operador of ordenados) {
-      const ladoAnterior = obterLado(operador.caixaAnterior);
+    function temConflito(inicio, fim, alocacao) {
+      return inicio < alocacao.fim && fim > alocacao.inicio;
+    }
 
-      const outroLado = ladoAnterior === "A" ? "B" : "A";
+    function mostrarMensagem(texto, tipo = "") {
+      const mensagem = document.getElementById("mensagem");
 
-      // Tenta primeiro o lado oposto.
-      const candidatos = [
-        ...caixas[outroLado],
-        ...caixas[ladoAnterior]
-      ];
+      mensagem.textContent = texto;
+      mensagem.className = tipo ? `mensagem ${tipo}` : "mensagem";
+    }
 
-      let melhorCaixa = null;
-      let menorPontuacao = Infinity;
 
-      for (const caixa of candidatos) {
-        const conflito = alocacoes.some(alocacao =>
-          alocacao.caixa === caixa &&
-          temConflito(
-            operador.inicioMin,
-            operador.fimMin,
-            alocacao
-          )
+    // ========================================
+    // 3. MOSTRAR OS CAIXAS
+    // ========================================
+
+    function mostrarCaixas() {
+      const lista = document.getElementById("listaCaixas");
+
+      lista.innerHTML = todosOsCaixas.map(caixa => {
+        const indisponivel = caixasIndisponiveis.has(caixa);
+
+        return `
+      <div class="cartao-caixa ${indisponivel ? "indisponivel" : ""}">
+        <input
+          type="checkbox"
+          id="caixa-${caixa}"
+          data-caixa="${caixa}"
+          ${indisponivel ? "checked" : ""}
+          aria-label="Marcar caixa ${caixa} como indisponível"
+        >
+
+        <label for="caixa-${caixa}">
+          Caixa ${caixa}
+          ${indisponivel ? "(Indisponível)" : ""}
+        </label>
+      </div>
+    `;
+      }).join("");
+
+      lista.querySelectorAll("[data-caixa]").forEach(campo => {
+        campo.addEventListener("change", () => {
+          const caixa = Number(campo.dataset.caixa);
+
+          if (campo.checked) {
+            caixasIndisponiveis.add(caixa);
+          } else {
+            caixasIndisponiveis.delete(caixa);
+          }
+
+          mostrarCaixas();
+
+          mostrarMensagem(
+            campo.checked
+              ? `Caixa ${caixa} marcado como indisponível.`
+              : `Caixa ${caixa} está disponível novamente.`
+          );
+        });
+      });
+    }
+
+
+    // ========================================
+    // 4. MOSTRAR OS OPERADORES
+    // ========================================
+
+    function mostrarOperadores() {
+      const lista = document.getElementById("listaOperadores");
+
+      if (!lista) {
+        console.error('Elemento "listaOperadores" não encontrado.');
+        return;
+      }
+
+      lista.innerHTML = operadores.map((operador, indice) => `
+    <tr>
+      <td>
+        <input
+          type="text"
+          data-indice="${indice}"
+          data-campo="nome"
+          value="${escaparHTML(operador.nome)}"
+          placeholder="Nome do operador"
+        >
+
+        <label>
+          <input
+            type="checkbox"
+            data-indice="${indice}"
+            data-campo="indisponivel"
+            ${operador.indisponivel ? "checked" : ""}
+        >
+          Indisponível
+        </label>
+      </td>
+
+      <td>
+        <select data-indice="${indice}" data-campo="caixaAnterior">
+          <option value="0" ${Number(operador.caixaAnterior) === 0 ? "selected" : ""}>
+            Selecione
+          </option>
+
+          ${Array.from({ length: 12 }, (_, i) => i + 1)
+          .map(caixa => `
+        <option
+        value="${caixa}"
+          ${Number(operador.caixaAnterior) === caixa ? "selected" : ""}
+          > 
+            ${caixa}
+        </option>
+        `).join("")}
+        </select>
+      </td>
+
+      <td>
+        <input
+          type="time"
+          data-indice="${indice}"
+          data-campo="inicio"
+          value="${operador.inicio}"
+        >
+      </td>
+
+      <td>
+        <input
+          type="time"
+          data-indice="${indice}"
+          data-campo="fim"
+          value="${operador.fim}"
+        >
+      </td>
+    </tr>
+  `).join("");
+    }
+    // ========================================
+    // 5. LER AS ALTERAÇÕES DO FORMULÁRIO
+    // ========================================
+
+    function lerFormulario() {
+      const dados = copiarDados(operadores);
+
+      document.querySelectorAll("[data-campo]").forEach(campo => {
+        const indice = Number(campo.dataset.indice);
+        const propriedade = campo.dataset.campo;
+
+        if (!dados[indice]) return;
+
+        if (campo.type === "checkbox") {
+          dados[indice][propriedade] = campo.checked;
+        } else if (propriedade === "caixaAnterior") {
+          dados[indice][propriedade] = Number(campo.value);
+        } else {
+          dados[indice][propriedade] = campo.value.trim();
+        }
+      });
+
+      return dados;
+    }
+
+
+    // ========================================
+    // 6. VALIDAR OS DADOS
+    // ========================================
+
+    function validarOperadores(dados) {
+      const disponiveis = dados.filter(op => !op.indisponivel);
+
+      if (disponiveis.length === 0) {
+        return "Não há operadores disponíveis para a rotação.";
+      }
+
+      for (const op of disponiveis) {
+        if (!op.nome || !op.inicio || !op.fim) {
+          return "Preencha o nome e os horários de todos os operadores disponíveis.";
+        }
+
+        if (
+          !Number.isInteger(op.caixaAnterior) ||
+          !todosOsCaixas.includes(op.caixaAnterior)
+        ) {
+          return `O caixa anterior de ${op.nome} é inválido.`;
+        }
+
+        if (paraMinutos(op.inicio) >= paraMinutos(op.fim)) {
+          return `O horário de ${op.nome} está inválido. O início deve ser anterior ao fim.`;
+        }
+      }
+
+      const nomes = disponiveis.map(op => op.nome.toLowerCase());
+
+      if (new Set(nomes).size !== nomes.length) {
+        return "Existem nomes repetidos entre os operadores disponíveis.";
+      }
+
+      return null;
+    }
+
+
+    // ========================================
+    // 7. CALCULAR A ROTAÇÃO
+    // ========================================
+
+    function gerarRotacao() {
+      const dados = lerFormulario();
+
+      // Guardar as alterações antes de renderizar novamente.
+      operadores = copiarDados(dados);
+
+      const erro = validarOperadores(dados);
+
+      if (erro) {
+        mostrarMensagem(erro, "erro");
+        return;
+      }
+
+      const disponiveis = dados
+        .filter(op => !op.indisponivel)
+        .map(op => ({
+          ...op,
+          inicioMin: paraMinutos(op.inicio),
+          fimMin: paraMinutos(op.fim)
+        }))
+        .sort((a, b) =>
+          (b.fimMin - b.inicioMin) - (a.fimMin - a.inicioMin)
         );
 
-        if (conflito) continue;
+      const alocacoes = [];
+      const resultadosPorNome = new Map();
 
-        const ladoNovo = obterLado(caixa);
+      for (const operador of disponiveis) {
+        const ladoAnterior = obterLado(operador.caixaAnterior);
+        const outroLado = ladoAnterior === "A" ? "B" : "A";
 
-        const esforcoAnterior =
-        esforcoCaixas[operador.caixaAnterior];
+        // Priorizar a troca de lado, respeitando a disponibilidade.
+        const candidatos = [
+          ...caixas[outroLado],
+          ...caixas[ladoAnterior]
+        ].filter(caixa => !caixasIndisponiveis.has(caixa));
 
-        const esforcoNovo = esforcoCaixas[caixa];
-        const carga = alocacoes.reduce((total, alocacao) => {
-        if (alocacao.caixa !== caixa) {
-            return total;
+        let melhorCaixa = null;
+        let menorPontuacao = Infinity;
+
+        for (const caixa of candidatos) {
+          const conflito = alocacoes.some(alocacao =>
+            alocacao.caixa === caixa &&
+            temConflito(
+              operador.inicioMin,
+              operador.fimMin,
+              alocacao
+            )
+          );
+
+          if (conflito) continue;
+
+          const ladoNovo = obterLado(caixa);
+          const esforcoAnterior = esforcoCaixas[operador.caixaAnterior];
+          const esforcoNovo = esforcoCaixas[caixa];
+
+          const carga = alocacoes.reduce((total, alocacao) => {
+            if (alocacao.caixa !== caixa) return total;
+
+            return total + (alocacao.fim - alocacao.inicio);
+          }, 0);
+
+          // Tentar alternar o esforço entre os turnos.
+          const pontuacaoEsforco = esforcoAnterior >= 2
+            ? esforcoNovo * 20
+            : (4 - esforcoNovo) * 20;
+
+          const penalidadeLado =
+            ladoNovo === ladoAnterior ? 100000 : 0;
+
+          const pontuacao =
+            carga * 0.1 +
+            pontuacaoEsforco +
+            penalidadeLado;
+
+          if (pontuacao < menorPontuacao) {
+            menorPontuacao = pontuacao;
+            melhorCaixa = caixa;
+          }
         }
 
-        return total + (alocacao.fim - alocacao.inicio);
-        }, 0);
+        if (melhorCaixa === null) {
+          resultadosPorNome.set(operador.nome, {
+            ...operador,
+            caixaNovo: null,
+            ladoNovo: null,
+            status: "Sem caixa disponível"
+          });
 
-        let pontuacaoEsforco;
-
-        if (esforcoAnterior >= 2) {
-        pontuacaoEsforco = esforcoNovo * 20;
-        } else {
-        pontuacaoEsforco = (4 - esforcoNovo) * 20;
+          continue;
         }
 
-        // A pontuação menor é preferível.
-        const pontuacao =
-        carga * 0.1 +
-        pontuacaoEsforco + (ladoNovo === ladoAnterior ? 100000 : 0);
-
-        if (pontuacao < menorPontuacao) {
-          menorPontuacao = pontuacao;
-          melhorCaixa = caixa;
-        }
-      }
-
-      if (melhorCaixa === null) {
-        resultado.push({
-          ...operador,
-          caixaNovo: null,
-          status: "Sem caixa disponível"
+        alocacoes.push({
+          caixa: melhorCaixa,
+          inicio: operador.inicioMin,
+          fim: operador.fimMin
         });
 
-        continue;
+        resultadosPorNome.set(operador.nome, {
+          ...operador,
+          caixaNovo: melhorCaixa,
+          ladoAnterior,
+          ladoNovo: obterLado(melhorCaixa),
+          status: obterLado(melhorCaixa) !== ladoAnterior
+            ? "Trocou de lado"
+            : "Permaneceu no lado"
+        });
       }
 
-      alocacoes.push({
-        caixa: melhorCaixa,
-        inicio: operador.inicioMin,
-        fim: operador.fimMin
+      // Incluir os operadores indisponíveis sem atribuir caixas.
+      const resultadoFinal = dados.map(operador => {
+        if (operador.indisponivel) {
+          return {
+            ...operador,
+            caixaNovo: null,
+            ladoNovo: null,
+            status: "Operador indisponível"
+          };
+        }
+
+        return resultadosPorNome.get(operador.nome);
       });
 
-      resultado.push({
-        ...operador,
-        caixaNovo: melhorCaixa,
-        ladoAnterior,
-        ladoNovo: obterLado(melhorCaixa),
-        status: ladoAnterior !== obterLado(melhorCaixa)
-          ? "Trocou de lado"
-          : "Permaneceu no lado"
-      });
+      mostrarResultado(resultadoFinal);
+
+      const semCaixa = resultadoFinal.filter(op =>
+        !op.indisponivel && op.caixaNovo === null
+      ).length;
+
+      if (semCaixa > 0) {
+        mostrarMensagem(
+          `Rotação calculada, mas ${semCaixa} operador(es) ficaram sem caixa. Verifique a disponibilidade dos caixas e os horários.`,
+          "erro"
+        );
+      } else {
+        mostrarMensagem(
+          "Rotação calculada com sucesso. Confira os resultados.",
+          "sucesso"
+        );
+      }
     }
 
-    mostrarResultado(resultado);
 
-    mensagem.className = "mensagem sucesso";
-    mensagem.textContent =
-      "Rotação calculada. Confira o resultado antes de utilizar a escala.";
-  }
+    // ========================================
+    // 8. MOSTRAR O RESULTADO
+    // ========================================
 
-  // 6. EXIBIR O RESULTADO NO HTML
-  function mostrarResultado(resultado) {
-    const tbody = document.getElementById("resultado");
+    function mostrarResultado(resultado) {
+      const lista = document.getElementById("resultado");
 
-    tbody.innerHTML = resultado.map(op => `
-      <tr>
-        <td>${escaparHTML(op.nome)}</td>
-        <td>${op.caixaAnterior}</td>
-        <td>${op.caixaNovo ?? "-"}</td>
-        <td class="${op.ladoNovo === "A" ? "lado-a" : "lado-b"}">
-          ${op.ladoNovo ?? "-"}
-        </td>
-        <td>${op.inicio} às ${op.fim}</td>
-        <td>${op.status}</td>
-      </tr>
-    `).join("");
-  }
-
-  // 7. RESTAURAR O ARRAY ORIGINAL
-  function restaurarDados() {
-    operadores = copiarDados(dadosIniciais);
-    mostrarOperadores();
-
-    document.getElementById("resultado").innerHTML = `
-      <tr>
-        <td colspan="6">Gere uma nova rotação para ver o resultado.</td>
-      </tr>
+      if (resultado.length === 0) {
+        lista.innerHTML = `
+      <p class="resultado-vazio">
+        Nenhum operador cadastrado.
+      </p>
     `;
+        return;
+      }
 
-    document.getElementById("mensagem").textContent =
-      "Dados iniciais restaurados.";
-    document.getElementById("mensagem").className = "mensagem";
-  }
+      lista.innerHTML = resultado.map(op => `
+    <article class="cartao-resultado">
+      <header class="cabecalho-resultado">
+        <div class="identificacao-resultado">
+          <h3 class="nome-resultado">
+            ${escaparHTML(op.nome)}
+          </h3>
 
-  // Inicialização
-  mostrarOperadores();
-</script>
+          <p class="horario-resultado">
+            ${escaparHTML(op.inicio)} às ${escaparHTML(op.fim)}
+          </p>
+        </div>
+
+        <div class="novo-caixa">
+          <span class="rotulo-novo-caixa">Novo caixa</span>
+          <strong>${op.caixaNovo ?? "—"}</strong>
+        </div>
+      </header>
+
+      <dl class="detalhes-resultado">
+        <div class="detalhe-resultado">
+          <dt>Caixa anterior</dt>
+          <dd>${op.caixaAnterior}</dd>
+        </div>
+
+        <div class="detalhe-resultado">
+          <dt>Novo lado</dt>
+          <dd class="${op.ladoNovo === "A" ? "lado-a" : op.ladoNovo === "B" ? "lado-b" : ""}">
+            ${op.ladoNovo ?? "—"}
+          </dd>
+        </div>
+
+        <div class="detalhe-resultado detalhe-status">
+          <dt>Status</dt>
+          <dd class="${op.indisponivel ? "status-indisponivel" : ""}">
+            ${escaparHTML(op.status)}
+          </dd>
+        </div>
+      </dl>
+    </article>
+  `).join("");
+    }
+
+
+    // ========================================
+    // 9. ADICIONAR OPERADOR
+    // ========================================
+
+    function adicionarOperador() {
+      operadores = lerFormulario();
+
+      operadores.push({
+        nome: "",
+        caixaAnterior: 1,
+        inicio: "10:00",
+        fim: "14:00",
+        indisponivel: false
+      });
+
+      mostrarOperadores();
+
+      mostrarMensagem(
+        "Novo operador adicionado. Preencha os dados antes de gerar a rotação."
+      );
+
+      const camposNome = document.querySelectorAll('[data-campo="nome"]');
+      camposNome[camposNome.length - 1]?.focus();
+    }
+
+
+    // ========================================
+    // 10. RESTAURAR OS DADOS INICIAIS
+    // ========================================
+
+    function restaurarDados() {
+      operadores = copiarDados(dadosIniciais);
+      caixasIndisponiveis.clear();
+
+      mostrarCaixas();
+      mostrarOperadores();
+
+      document.getElementById("resultado").innerHTML = `
+    <p class="resultado-vazio">
+      O resultado aparecerá aqui depois de gerar a rotação.
+    </p>
+  `;
+
+      mostrarMensagem("Dados iniciais restaurados.");
+    }
+
+
+    // ========================================
+    // 11. ATUALIZAR DISPONIBILIDADE DO OPERADOR
+    // ========================================
+
+    document.addEventListener("change", evento => {
+      const campo = evento.target;
+
+      if (
+        campo.matches('[data-campo="indisponivel"]') &&
+        campo.type === "checkbox"
+      ) {
+        const indice = Number(campo.dataset.indice);
+
+        operadores = lerFormulario();
+
+        // Atualizar o cartão para refletir o novo estado.
+        mostrarOperadores();
+
+        mostrarMensagem(
+          operadores[indice].indisponivel
+            ? `${operadores[indice].nome || "Operador"} marcado como indisponível.`
+            : `${operadores[indice].nome || "Operador"} está disponível novamente.`
+        );
+      }
+    });
+
+
+    // ========================================
+    // 12. CONECTAR OS BOTÕES
+    // ========================================
+
+    document.getElementById("gerarRotacao")
+      .addEventListener("click", gerarRotacao);
+
+    document.getElementById("restaurarDados")
+      .addEventListener("click", restaurarDados);
+
+    const botaoAdicionar = document.getElementById("adicionarOperador");
+
+    if (botaoAdicionar) {
+      botaoAdicionar.addEventListener("click", adicionarOperador);
+    }
+    mostrarCaixas();
+    mostrarOperadores();
+  </script>
 </body>
+
 </html>
