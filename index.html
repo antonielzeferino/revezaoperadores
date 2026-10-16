@@ -681,13 +681,14 @@
     const dadosIniciais = [
       { nome: "Mazé", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
       { nome: "Ilana", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
-      { nome: "Karoline", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
+      { nome: "Karoline", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: true },
       { nome: "Bárbara", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
       { nome: "Erisvaldo", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
       { nome: "Raquel", caixaAnterior: 0, inicio: "13:00", fim: "16:20", indisponivel: false },
       { nome: "Itallo", caixaAnterior: 0, inicio: "14:00", fim: "17:20", indisponivel: false },
       { nome: "Arthur", caixaAnterior: 0, inicio: "14:00", fim: "17:20", indisponivel: false },
       { nome: "Daniele", caixaAnterior: 0, inicio: "14:00", fim: "17:20", indisponivel: false },
+      { nome: "Fernanda", caixaAnterior: 0, inicio: "16:00", fim: "20:20", indisponivel: true },
       { nome: "Carolina", caixaAnterior: 0, inicio: "16:00", fim: "19:20", indisponivel: false },
       { nome: "Israyane", caixaAnterior: 0, inicio: "16:20", fim: "20:50", indisponivel: false },
       { nome: "Aline", caixaAnterior: 0, inicio: "16:20", fim: "20:20", indisponivel: false },
@@ -695,7 +696,8 @@
       { nome: "Kaylan", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
       { nome: "Antoniel", caixaAnterior: 0, inicio: "16:00", fim: "20:20", indisponivel: false },
       { nome: "Erisvaldo II", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false },
-      { nome: "Ariel sereia", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: false }
+      { nome: "Ariel sereia", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: true },
+      { nome: "Paulo kael", caixaAnterior: 0, inicio: "16:30", fim: "20:50", indisponivel: true }
     ];
 
     const esforcoCaixas = {
@@ -931,7 +933,18 @@
           !Number.isInteger(op.caixaAnterior) ||
           !todosOsCaixas.includes(op.caixaAnterior)
         ) {
-          return `O caixa anterior de ${op.nome} é inválido.`;
+          const caixasDisponiveis = todosOsCaixas.filter(
+            caixa => !caixasIndisponiveis.has(caixa)
+          );
+
+          if (caixasDisponiveis.length > 0) {
+            op.caixaAnterior =
+              caixasDisponiveis[
+              Math.floor(Math.random() * caixasDisponiveis.length)
+              ];
+          } else {
+            op.caixaAnterior = 0;
+          }
         }
 
         if (paraMinutos(op.inicio) >= paraMinutos(op.fim)) {
